@@ -92,12 +92,14 @@ nav button.active { background:rgba(255,255,255,0.09); color:var(--text); box-sh
 .proj-btn .p-num { font:500 11px JetBrains Mono; color:var(--muted); display:block; margin-bottom:6px; opacity:.7; }
 .proj-btn.active .p-num { color:var(--cyan); opacity:1; }
 .proj-detail { position:relative; overflow:hidden; }
-.detail-inner { height:100%; padding:60px 72px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:center; }
-.p-title { font-size:clamp(36px,5vw,64px); font-weight:700; letter-spacing:-.02em; line-height:.95; margin-bottom:24px; background:linear-gradient(90deg,#fff,#fff5,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+.detail-inner { height:100%; padding:48px 64px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center; }
+.detail-left { overflow-y:auto; max-height:calc(100vh - 180px); padding-right:8px; }
+.detail-left::-webkit-scrollbar { width:3px; } .detail-left::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:2px; }
+.p-title { font-size:clamp(28px,3.8vw,52px); font-weight:700; letter-spacing:-.02em; line-height:1.0; margin-bottom:16px; background:linear-gradient(90deg,#fff,#fff5,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
 .pill { font:500 11px/1 JetBrains Mono; padding:7px 12px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.8); letter-spacing:.02em; }
-.bullets { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:28px; }
-.bullets li { position:relative; padding-left:24px; color:var(--muted); line-height:1.55; font-size:15px; }
+.bullets { list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:20px; }
+.bullets li { position:relative; padding-left:24px; color:var(--muted); line-height:1.5; font-size:14px; }
 .bullets li::before { content:""; position:absolute; left:0; top:8px; width:6px; height:6px; border-radius:50%; background:var(--violet); box-shadow:0 0 10px var(--violet); }
 .p-meta { font:500 13px JetBrains Mono; color:var(--cyan); padding:12px 16px; background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.2); border-radius:12px; display:inline-block; }
 .code-window {
@@ -171,7 +173,7 @@ nav button.active { background:rgba(255,255,255,0.09); color:var(--text); box-sh
   <section id="home">
     <div class="home-sub">Full-Stack AI Engineer</div>
     <h1 class="home-title">KRISH<br>AGARWAL</h1>
-    <div class="home-tag">Building production LLM systems<span class="home-dot"></span>San Francisco</div>
+    <div class="home-tag">B.Tech CSE 2026 | Full-Stack AI Engineer<span class="home-dot"></span>Ghaziabad, India</div>
   </section>
 
   <!-- ABOUT -->
@@ -179,27 +181,33 @@ nav button.active { background:rgba(255,255,255,0.09); color:var(--text); box-sh
     <div class="glass card">
       <div class="about-head">
         <div class="eyebrow">About</div>
-        <h2 class="about-title">Engineering AI that ships.</h2>
-        <p class="about-desc">I design and deploy full-stack systems where LLMs meet production constraints — latency, cost, reliability. From semantic caching to federated learning, I build the infrastructure that makes AI useful at scale.</p>
+        <h2 class="about-title">Full-Stack AI Builder</h2>
+        <p class="about-desc">I build full-stack AI applications end-to-end — React frontends, FastAPI/Node backends, and LLM integrations. Currently at ABES Engineering College, Ghaziabad, seeking off-campus roles.</p>
       </div>
       <div class="timeline">
         <div class="t-item">
           <div class="t-dot"></div>
-          <div class="t-time">2024 — Present</div>
-          <div class="t-role">Full-Stack AI Engineer</div>
-          <div class="t-text">Building production LLM platforms. Focus: retrieval architectures, eval frameworks, and multi-model routing.</div>
+          <div class="t-time">2025 — 2026</div>
+          <div class="t-role">PromptArche — Flagship Project</div>
+          <div class="t-text">Built RAG pipeline with FastAPI, PostgreSQL, HuggingFace embeddings, Groq API. 10,000+ prompts, 90% cache hit rate, 20+ endpoints. Containerized via Docker.</div>
         </div>
         <div class="t-item">
           <div class="t-dot"></div>
-          <div class="t-time">2023 — 2024</div>
-          <div class="t-role">PromptArche — Founder/Lead</div>
-          <div class="t-text">10,000+ prompts indexed. 90% cache hit rate. 25+ model integrations with unified API.</div>
+          <div class="t-time">Jan — Apr 2026</div>
+          <div class="t-role">Java Full Stack Training + Research</div>
+          <div class="t-text">Campus-selected program. Hands-on: Spring Boot, Spring Cloud, AWS, Jenkins, Docker Swarm. Parallel research: Federated Learning for Network Traffic Classification (manuscript submitted).</div>
         </div>
         <div class="t-item">
           <div class="t-dot"></div>
-          <div class="t-time">2022 — 2023</div>
-          <div class="t-role">ML Systems Research</div>
-          <div class="t-text">Federated learning with differential privacy. CLIP-based multimodal retrieval. Published internal tooling.</div>
+          <div class="t-time">2024 — 2025</div>
+          <div class="t-role">DocuStream — Shipped Live</div>
+          <div class="t-text">Python, Streamlit, Docker. GitHub API integration. Live at docustream.streamlit.app. LeetCode 1561 rating, 400+ DSA problems solved.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-time">2022 — 2024</div>
+          <div class="t-role">Foundation Projects</div>
+          <div class="t-text">Image Captioning Bot (CLIP ViT-B/32 + GPT-2, PyTorch), Faculty Feedback System (React/Node, 30+ APIs, 3-role RBAC), ECG Anomaly Detection (1D-CNN + LSTM, MIT-BIH).</div>
         </div>
       </div>
     </div>
@@ -211,15 +219,20 @@ nav button.active { background:rgba(255,255,255,0.09); color:var(--text); box-sh
       <div class="proj-list">
         <button class="proj-btn active" data-p="prompt"><span class="p-num">01</span>PromptArche</button>
         <button class="proj-btn" data-p="docu"><span class="p-num">02</span>DocuStream</button>
-        <button class="proj-btn" data-p="hms"><span class="p-num">03</span>Hospital Management</button>
+        <button class="proj-btn" data-p="faculty"><span class="p-num">03</span>Faculty Feedback</button>
+        <button class="proj-btn" data-p="ecg"><span class="p-num">04</span>ECG Detection</button>
+        <button class="proj-btn" data-p="hms"><span class="p-num">05</span>Hospital Management</button>
       </div>
       <div class="proj-detail">
         <div class="detail-inner">
-          <div>
+          <div class="detail-left">
             <h2 class="p-title" id="p-title">PromptArche</h2>
             <div class="pills" id="p-tech"></div>
             <ul class="bullets" id="p-bullets"></ul>
-            <div class="p-meta" id="p-meta"></div>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+              <div class="p-meta" id="p-meta"></div>
+              <a id="p-link" href="#" target="_blank" style="font:500 13px JetBrains Mono;color:var(--cyan);padding:12px 16px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:12px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(0,212,255,0.15)'" onmouseout="this.style.background='rgba(0,212,255,0.08)'">↗ GitHub / Link</a>
+            </div>
           </div>
           <div class="code-window">
             <div class="code-header"><span></span><span></span><span id="p-file">architecture.ts</span></div>
@@ -236,53 +249,61 @@ nav button.active { background:rgba(255,255,255,0.09); color:var(--text); box-sh
     <div class="skills-wrap" id="skills-wrap">
       
       <div class="skill-panel">
-        <h3>Programming Languages</h3>
+        <h3>Languages</h3>
         <div class="pills">
-          <span>Python</span><span>JavaScript</span><span>Java</span><span>SQL</span>
+          <span>Python</span><span>JavaScript (ES6+)</span><span>Java</span><span>C</span><span>C++</span><span>SQL</span>
         </div>
       </div>
-      
+
       <div class="skill-panel">
-        <h3>Full-Stack Development</h3>
+        <h3>Frontend</h3>
         <div class="pills">
-          <span>React</span><span>Node.js</span><span>FastAPI</span><span>REST APIs</span><span>WebSockets</span><span>JWT Authentication</span>
+          <span>React.js</span><span>Redux Toolkit</span><span>Vite</span><span>Material UI</span><span>Tailwind CSS</span><span>HTML5</span><span>CSS3</span>
         </div>
       </div>
-      
+
+      <div class="skill-panel">
+        <h3>Backend</h3>
+        <div class="pills">
+          <span>FastAPI</span><span>Node.js</span><span>Express.js</span><span>Spring Boot</span><span>Spring Cloud</span><span>REST APIs</span><span>WebSockets</span><span>JWT</span>
+        </div>
+      </div>
+
       <div class="skill-panel">
         <h3>AI &amp; Machine Learning</h3>
         <div class="pills">
-          <span>PyTorch</span><span>HuggingFace</span><span>LLM Integration</span><span>CLIP</span><span>Federated Learning</span>
+          <span>PyTorch</span><span>HuggingFace</span><span>RAG Pipelines</span><span>LLM Integration</span><span>CLIP ViT-B/32</span><span>GPT-2</span><span>1D-CNN</span><span>LSTM</span><span>Federated Learning</span>
         </div>
       </div>
-      
+
       <div class="skill-panel">
         <h3>Databases &amp; Storage</h3>
         <div class="pills">
-          <span>PostgreSQL</span><span>MongoDB</span><span>MySQL</span><span>Vector Databases</span>
+          <span>PostgreSQL</span><span>MongoDB</span><span>MySQL</span><span>Supabase</span><span>Vector Databases</span>
         </div>
       </div>
-      
+
       <div class="skill-panel">
-        <h3>Cloud &amp; DevOps</h3>
+        <h3>DevOps &amp; Cloud</h3>
         <div class="pills">
-          <span>Docker</span><span>AWS (EC2, S3, RDS)</span><span>Git</span><span>GitHub</span><span>Jenkins</span>
+          <span>Docker</span><span>Docker Compose</span><span>Docker Swarm</span><span>AWS EC2/S3/RDS</span><span>Jenkins</span><span>SonarQube</span><span>Git</span><span>GitHub</span>
         </div>
       </div>
+
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
     <div class="glass card">
-      <h2 class="contact-title">Let's build.</h2>
-      <p class="contact-sub">Full-stack AI systems, production LLMs, and infrastructure that scales.</p>
+      <h2 class="contact-title">Let's connect.</h2>
+      <p class="contact-sub">B.Tech CSE 2026 graduate seeking Full-Stack AI Engineer roles across India.</p>
       <div class="contact-links">
-        <a class="c-link" href="mailto:krish@promptarche.com"><span>Email</span><span>krish@promptarche.com</span></a>
-        <a class="c-link" href="https://linkedin.com" target="_blank"><span>LinkedIn</span><span>/in/krishagarwal</span></a>
-        <a class="c-link" href="https://github.com" target="_blank"><span>GitHub</span><span>@krishagarwal</span></a>
+        <a class="c-link" href="mailto:krish5002ag@gmail.com"><span>Email</span><span>krish5002ag@gmail.com</span></a>
+        <a class="c-link" href="https://linkedin.com/in/krish-agarwal-14a659364" target="_blank"><span>LinkedIn</span><span>/in/krish-agarwal-14a659364</span></a>
+        <a class="c-link" href="https://github.com/Noob-Coder2" target="_blank"><span>GitHub</span><span>@Noob-Coder2</span></a>
       </div>
-      <div class="avail">Available for Full-Stack AI roles</div>
+      <div class="avail">Ghaziabad, India | +91-6397186295</div>
     </div>
   </section>
 </main>
@@ -405,7 +426,7 @@ sections.forEach((sec,i)=>{
 
 ScrollTrigger.create({
   scroller:"#container",
-  snap:{ snapTo:1/4, duration:0.5, ease:"power2.inOut" }
+  snap:{ snapTo:1/5, duration:0.5, ease:"power2.inOut" }
 });
 
 navBtns.forEach(btn=>{
@@ -419,82 +440,116 @@ navBtns.forEach(btn=>{
 const projectData = {
   prompt: {
     title:"PromptArche",
-    tech:["React","Node.js","FastAPI","PostgreSQL","Redis","Docker"],
+    tech:["FastAPI","PostgreSQL","Supabase","HuggingFace","Groq API","Docker"],
     bullets:[
-      "Engineered semantic cache achieving 90% hit rate across 10,000+ prompts",
-      "Unified routing across 25+ LLM APIs with automatic fallback & load balancing",
-      "Reduced P95 latency by 65% using FAISS vector search + Redis"
+      "Designed a custom RAG pipeline processing 10,000+ prompts — semantic embedding, vector similarity search, and LLM-driven insight generation via Groq API",
+      "Achieved 90% embedding cache hit rate, significantly reducing LLM API calls and response latency",
+      "Architected 20+ RESTful endpoints with batch processing; fully containerized via Docker with CI/CD pipeline"
     ],
-    meta:"10,000+ prompts • 90% cache • 25+ APIs",
-    file:"router.ts",
-    code:`<span class="c1">// PromptArche — Semantic LLM Router</span>
-<span class="k">interface</span> <span class="t">PromptRequest</span> {
-  query: <span class="s">string</span>;
-  embedding: <span class="s">Vector&lt;768&gt;</span>;
-}
+    meta:"10,000+ prompts • 90% cache hit • 20+ endpoints",
+    file:"rag_pipeline.py",
+    link:"https://github.com/Noob-Coder2/PromptArche",
+    code:`<span class="c1"># PromptArche — Custom RAG Pipeline</span>
+<span class="k">class</span> <span class="t">EmbeddingCache</span>:
+  <span class="f">hit_rate</span>: <span class="s">90%</span>
+  store: <span class="s">HuggingFace + PostgreSQL</span>
 
-<span class="k">class</span> <span class="t">SemanticCache</span> {
-  <span class="f">get</span>(key): <span class="s">90% hit</span>
-  store: <span class="s">FAISS + Redis</span>
-  ttl: <span class="s">adaptive</span>
-}
+<span class="k">def</span> <span class="f">rag_query</span>(prompt: <span class="s">str</span>):
+  vec = <span class="f">embed</span>(prompt)          <span class="c1"># HuggingFace</span>
+  hits = <span class="f">vector_search</span>(vec)   <span class="c1"># pgvector</span>
+  <span class="k">return</span> <span class="f">groq_llm</span>(hits)        <span class="c1"># Groq API</span>
 
-<span class="k">const</span> router → [
-  <span class="s">'openai'</span>, <span class="s">'anthropic'</span>, 
-  <span class="s">'mistral'</span>, <span class="s">'...25+'</span>
-]
-
-<span class="c2">throughput: 10k prompts/day • p95 214ms</span>`
+<span class="c2"># 10k+ prompts • 20+ endpoints • Docker</span>`
   },
   docu: {
     title:"DocuStream",
-    tech:["Python","Streamlit","PyTorch","CLIP","FAISS","AWS"],
+    tech:["Python","Streamlit","Docker","GitHub API"],
     bullets:[
-      "Real-time document Q&A over 50k+ pages with <200ms retrieval",
-      "Vision-language pipeline using CLIP ViT-B/32 embeddings",
-      "Deployed on AWS with auto-scaling, handling 1.2k concurrent users"
+      "Shipped and maintained a live documentation utility solving a real personal pain point — full end-to-end ownership from idea to deployment",
+      "Integrated GitHub API for live repository document fetching and consolidation",
+      "Independently containerized via Docker and deployed; accessible at docustream.streamlit.app"
     ],
     meta:"Live: docustream.streamlit.app",
-    file:"pipeline.py",
-    code:`<span class="c1"># DocuStream — Realtime RAG</span>
-<span class="k">def</span> <span class="f">ingest</span>(pdf):
-  chunks = <span class="s">PyMuPDF</span>.extract()
-  embeddings = <span class="s">CLIP_ViT_B32</span>(chunks)
-  <span class="s">FAISS</span>.index(embeddings)
+    file:"app.py",
+    link:"https://github.com/Noob-Coder2/DocuMerger",
+    code:`<span class="c1"># DocuStream — GitHub Doc Consolidator</span>
+<span class="k">import</span> streamlit <span class="k">as</span> st
+<span class="k">from</span> github <span class="k">import</span> <span class="t">Github</span>
 
-<span class="k">def</span> <span class="f">query</span>(q):
-  vec = embed(q)
-  hits = index.search(vec, k=8)
-  <span class="k">return</span> llm.synthesize(hits)
+<span class="k">def</span> <span class="f">fetch_docs</span>(repo_url):
+  g = <span class="t">Github</span>(token)
+  files = g.<span class="f">get_repo</span>(repo_url)
+  <span class="k">return</span> <span class="f">consolidate</span>(files)
 
-<span class="c2"># metrics: p95 187ms • 50k docs • live</span>
-<span class="s">docustream.streamlit.app</span>`
+<span class="c2"># Live at docustream.streamlit.app</span>
+<span class="c2"># Docker • GitHub API • Streamlit</span>`
+  },
+  faculty: {
+    title:"Faculty Feedback System",
+    tech:["React","Redux Toolkit","Node.js","Express","MongoDB","WebSockets","JWT"],
+    bullets:[
+      "Built 30+ RESTful APIs with 3-role RBAC (Admin, Faculty, Student), JWT authentication, and Bcrypt password hashing",
+      "Implemented real-time dashboards using WebSockets for live feedback updates and data consistency",
+      "Sustained development across two academic years — full ownership from architecture to completion"
+    ],
+    meta:"30+ APIs • 3-role RBAC • Real-time WebSockets",
+    file:"auth.middleware.js",
+    link:"https://github.com/Noob-Coder2/Faculty-FeedBack",
+    code:`<span class="c1">// Faculty Feedback — RBAC Middleware</span>
+<span class="k">const</span> <span class="f">checkRole</span> = (roles) => (req, res, next) => {
+  <span class="k">const</span> { role } = <span class="f">verifyJWT</span>(req.headers.token);
+  <span class="k">if</span>(!roles.<span class="f">includes</span>(role))
+    <span class="k">return</span> res.<span class="f">status</span>(<span class="s">403</span>).<span class="f">json</span>({ err: <span class="s">'Forbidden'</span> });
+  <span class="f">next</span>();
+};
+
+<span class="c2">// roles: ADMIN | FACULTY | STUDENT</span>
+<span class="c2">// 30+ endpoints • WebSocket dashboards</span>`
+  },
+  ecg: {
+    title:"ECG Anomaly Detection",
+    tech:["Python","PyTorch","1D-CNN","LSTM","MIT-BIH Dataset"],
+    bullets:[
+      "Built a hybrid 1D-CNN + LSTM model for automated ECG abnormality classification on the MIT-BIH Arrhythmia Dataset",
+      "Engineered end-to-end ML pipeline: signal preprocessing, feature extraction, temporal pattern recognition, and multi-class classification",
+      "Tackled imbalanced medical time-series data with robust preprocessing and evaluation strategies"
+    ],
+    meta:"MIT-BIH Dataset • 1D-CNN + LSTM • PyTorch",
+    file:"model.py",
+    link:"https://www.kaggle.com/code/noobbcoder2/anomaly-detection-in-ecg-using-1d-convolution-lstm",
+    code:`<span class="c1"># ECG Anomaly Detection — Hybrid Model</span>
+<span class="k">class</span> <span class="t">ECGModel</span>(nn.Module):
+  <span class="k">def</span> <span class="f">__init__</span>(self):
+    self.conv = nn.<span class="t">Conv1d</span>(<span class="s">1, 64, 7</span>)  <span class="c1"># 1D-CNN</span>
+    self.lstm = nn.<span class="t">LSTM</span>(<span class="s">64, 128, 2</span>)  <span class="c1"># Temporal</span>
+    self.fc   = nn.<span class="t">Linear</span>(<span class="s">128, 5</span>)    <span class="c1"># 5 classes</span>
+
+<span class="c2"># MIT-BIH Arrhythmia • Imbalanced data</span>
+<span class="c2"># Full pipeline: preprocess → train → eval</span>`
   },
   hms: {
     title:"Hospital Management System",
-    tech:["Spring Boot","MySQL","React","JWT","Redis"],
+    tech:["Spring Boot","Spring Cloud","Docker","AWS","Jenkins","Maven"],
     bullets:[
-      "Full hospital workflow: patients, doctors, appointments, billing",
-      "Role-based JWT auth with audit logging & HIPAA-compliant encryption",
-      "Optimized queries handling 1M+ records with <50ms response"
+      "Individually designed and built the Appointment Management microservice — core dependency consumed by Physician, Nurse, and Patient services",
+      "Implemented within a 4-service Spring Cloud architecture: Eureka service discovery, API Gateway, and Config Server",
+      "Group project; hands-on with Jenkins CI/CD pipeline, AWS EC2/S3/RDS deployment, and Docker containerization"
     ],
-    meta:"Spring Boot • MySQL • JWT",
-    file:"AuthController.java",
-    code:`<span class="c1">// HMS — Secure Core</span>
+    meta:"Spring Cloud • AWS • Jenkins CI/CD",
+    file:"AppointmentController.java",
+    link:"https://github.com/Noob-Coder2/Hospital-Management-System",
+    code:`<span class="c1">// Appointment Microservice — Spring Boot</span>
 <span class="k">@RestController</span>
-<span class="k">public class</span> <span class="t">AuthController</span> {
-  <span class="k">@PostMapping</span>(<span class="s">"/login"</span>)
-  <span class="f">JWT</span> login(credentials) {
-    <span class="k">return</span> jwtService.issue(
-      roles: [DOCTOR, ADMIN, PATIENT],
-      audit: true
-    );
+<span class="k">@RequestMapping</span>(<span class="s">"/appointments"</span>)
+<span class="k">public class</span> <span class="t">AppointmentController</span> {
+
+  <span class="k">@PostMapping</span>(<span class="s">"/book"</span>)
+  <span class="k">public</span> <span class="t">ResponseEntity</span> <span class="f">book</span>(<span class="t">@RequestBody</span> dto) {
+    <span class="k">return</span> service.<span class="f">schedule</span>(dto); <span class="c1">// → Physician, Nurse, Patient</span>
   }
 }
 
-<span class="s">DB: MySQL (1M+ records)</span>
-<span class="s">Cache: Redis sessions</span>
-<span class="c2">uptime: 99.97%</span>`
+<span class="c2">// Eureka • API Gateway • Config Server</span>`
   }
 };
 
@@ -504,6 +559,7 @@ const pBullets = document.getElementById('p-bullets');
 const pMeta = document.getElementById('p-meta');
 const pCode = document.getElementById('p-code');
 const pFile = document.getElementById('p-file');
+const pLink = document.getElementById('p-link');
 
 function selectProject(key){
   const d = projectData[key];
@@ -514,6 +570,8 @@ function selectProject(key){
     pMeta.textContent = d.meta;
     pFile.textContent = d.file;
     pCode.innerHTML = d.code;
+    pLink.href = d.link;
+    pLink.textContent = d.link.includes('kaggle') ? '↗ Kaggle' : '↗ GitHub';
     gsap.to('.detail-inner', { opacity:1, y:0, duration:0.35, ease:"power2.out" });
   }});
   document.querySelectorAll('.proj-btn').forEach(b=>b.classList.toggle('active', b.dataset.p===key));
