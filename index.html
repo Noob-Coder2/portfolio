@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krish Agarwal — Full-Stack AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/gsap@3.12.4/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.4/dist/ScrollTrigger.min.js"></script>
+<script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.155.0/build/three.module.js" } }
+</script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #050508;
+  --glass: rgba(12, 14, 20, 0.7);
+  --border: rgba(255,255,255,0.08);
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.6);
+  --cyan: #00d4ff;
+  --violet: #7c3aed;
+  --pink: #ec4899;
+  --green: #10b981;
+}
+html, body { height:100%; background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, sans-serif; overflow:hidden; -webkit-font-smoothing:antialiased; }
+#bg { position:fixed; inset:0; z-index:0; }
+#container { position:relative; z-index:1; height:100vh; overflow-y:scroll; overflow-x:hidden; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+section { height:100vh; scroll-snap-align:start; position:relative; display:flex; align-items:center; justify-content:center; padding:100px 24px 40px; }
+nav {
+  position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:100;
+  display:flex; gap:4px; padding:6px;
+  background: rgba(8,10,15,0.6); backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid var(--border); border-radius:999px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+nav button {
+  appearance:none; border:0; background:transparent; color:var(--muted);
+  padding:10px 18px; border-radius:999px; font:500 13px/1 Inter; letter-spacing:.02em;
+  cursor:pointer; transition:all .3s cubic-bezier(.2,.8,.2,1); white-space:nowrap;
+}
+nav button:hover { color:var(--text); }
+nav button.active { background:rgba(255,255,255,0.09); color:var(--text); box-shadow:inset 0 1px 0 rgba(255,255,255,0.08); }
+
+/* HOME */
+#home { flex-direction:column; text-align:center; }
+.home-title {
+  font-size:clamp(48px, 11vw, 128px); font-weight:700; letter-spacing:-0.03em; line-height:.85;
+  background:linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:24px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+.home-sub { font-size:clamp(16px,2.2vw,22px); color:var(--muted); font-weight:500; letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px; }
+.home-tag { font-size:clamp(14px,1.6vw,18px); color:rgba(255,255,255,0.5); font-weight:400; }
+.home-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--cyan); margin:0 12px; box-shadow:0 0 16px var(--cyan); vertical-align:middle; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.2)} }
+
+/* GLASS */
+.glass {
+  background:var(--glass); backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid var(--border); border-radius:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* ABOUT */
+#about .card { max-width:900px; width:100%; padding:48px; }
+.about-head { margin-bottom:36px; }
+.eyebrow { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); font-weight:600; margin-bottom:12px; }
+.about-title { font-size:clamp(28px,4vw,40px); font-weight:650; letter-spacing:-.02em; margin-bottom:12px; }
+.about-desc { color:var(--muted); line-height:1.65; max-width:640px; }
+.timeline { position:relative; margin-top:40px; padding-left:28px; }
+.timeline::before { content:""; position:absolute; left:8px; top:4px; bottom:4px; width:2px; background:linear-gradient(180deg, var(--cyan), var(--violet), var(--pink)); opacity:.4; }
+.t-item { position:relative; margin-bottom:28px; }
+.t-dot { position:absolute; left:-24px; top:4px; width:10px; height:10px; border-radius:50%; background:var(--bg); border:2px solid var(--cyan); box-shadow:0 0 12px rgba(0,212,255,0.5); }
+.t-time { font:500 12px/1 JetBrains Mono; color:var(--cyan); margin-bottom:6px; letter-spacing:.02em; }
+.t-role { font-weight:600; font-size:16px; margin-bottom:4px; }
+.t-text { color:var(--muted); font-size:14px; line-height:1.55; }
+
+/* PROJECTS */
+#projects { padding:100px 0 0; }
+.projects-shell { width:100%; max-width:1400px; height:calc(100vh - 100px); margin:0 auto; display:grid; grid-template-columns:300px 1fr; gap:0; }
+.proj-list { border-right:1px solid var(--border); padding:40px 0; display:flex; flex-direction:column; gap:4px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); }
+.proj-btn {
+  appearance:none; border:0; background:transparent; text-align:left; cursor:pointer;
+  padding:18px 32px; color:var(--muted); font:500 15px/1.3 Inter; position:relative;
+  transition:all .25s; border-left:2px solid transparent;
+}
+.proj-btn:hover { color:var(--text); background:rgba(255,255,255,0.02); }
+.proj-btn.active { color:var(--text); background:rgba(255,255,255,0.04); border-left-color:var(--cyan); }
+.proj-btn .p-num { font:500 11px JetBrains Mono; color:var(--muted); display:block; margin-bottom:6px; opacity:.7; }
+.proj-btn.active .p-num { color:var(--cyan); opacity:1; }
+.proj-detail { position:relative; overflow:hidden; }
+.detail-inner { height:100%; padding:60px 72px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:center; }
+.p-title { font-size:clamp(36px,5vw,64px); font-weight:700; letter-spacing:-.02em; line-height:.95; margin-bottom:24px; background:linear-gradient(90deg,#fff,#fff5,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+.pill { font:500 11px/1 JetBrains Mono; padding:7px 12px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.8); letter-spacing:.02em; }
+.bullets { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:28px; }
+.bullets li { position:relative; padding-left:24px; color:var(--muted); line-height:1.55; font-size:15px; }
+.bullets li::before { content:""; position:absolute; left:0; top:8px; width:6px; height:6px; border-radius:50%; background:var(--violet); box-shadow:0 0 10px var(--violet); }
+.p-meta { font:500 13px JetBrains Mono; color:var(--cyan); padding:12px 16px; background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.2); border-radius:12px; display:inline-block; }
+.code-window {
+  background:#0a0c12; border:1px solid rgba(255,255,255,0.08); border-radius:18px; overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+  transform:perspective(1200px) rotateY(-8deg) rotateX(4deg); transition:transform .6s;
+}
+.code-window:hover { transform:perspective(1200px) rotateY(-4deg) rotateX(2deg); }
+.code-header { display:flex; align-items:center; gap:6px; padding:12px 16px; background:rgba(255,255,255,0.02); border-bottom:1px solid rgba(255,255,255,0.06); }
+.code-header span:nth-child(1), .code-header span:nth-child(2), .code-header span:nth-child(3) { width:10px; height:10px; border-radius:50%; background:#ff5f56; opacity:.8; }
+.code-header span:nth-child(2){ background:#ffbd2e; } .code-header span:nth-child(3){ background:#27c93f; }
+.code-header span:last-child { margin-left:auto; font:500 11px JetBrains Mono; color:rgba(255,255,255,0.4); }
+.code-window pre { margin:0; padding:22px; font:13px/1.7 JetBrains Mono; color:#c9d1d9; overflow:auto; max-height:380px; }
+.code-window .k { color:#c792ea; } .code-window .t { color:#ff7eb6; } .code-window .s { color:#82aaff; } .code-window .c1 { color:#637777; } .code-window .c2 { color:#7fdbca; } .code-window .f { color:#addb67; }
+
+/* SKILLS */
+#skills { padding:0; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.skills-label { position:absolute; top:110px; left:50%; transform:translateX(-50%); z-index:2; font:600 12px/1 Inter; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); padding:8px 16px; background:rgba(0,0,0,0.4); border:1px solid var(--border); border-radius:999px; backdrop-filter:blur(12px); }
+.skills-wrap { position:relative; width:min(1200px,92vw); display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding:160px 24px 40px; margin:0 auto; }
+.skill-panel { position:relative; width:auto; min-height:280px; padding:24px; background:rgba(255,255,255,0.05); border:1px solid rgba(0,212,255,0.3); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:18px; box-shadow:0 20px 50px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05); opacity:0; transform:translateY(20px); }
+.skill-panel h3 { font-size:18px; font-weight:700; color:#fff; margin-bottom:16px; letter-spacing:-.01em; }
+.skill-panel .pills { display:flex; flex-wrap:wrap; gap:8px; }
+.skill-panel .pills span { font-size:14px; line-height:1.2; padding:8px 14px; background:rgba(0,212,255,0.15); border:1px solid rgba(0,212,255,0.22); border-radius:20px; display:inline-block; color:rgba(255,255,255,0.92); font-weight:500; white-space:nowrap; }
+
+/* CONTACT */
+#contact .card { padding:56px; max-width:560px; width:100%; text-align:center; }
+.contact-title { font-size:36px; font-weight:700; letter-spacing:-.02em; margin-bottom:12px; }
+.contact-sub { color:var(--muted); margin-bottom:36px; }
+.contact-links { display:grid; gap:14px; margin-bottom:32px; }
+.c-link { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; text-decoration:none; color:var(--text); transition:all .25s; }
+.c-link:hover { background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15); transform:translateY(-1px); }
+.c-link span:first-child { font:500 14px Inter; } .c-link span:last-child { font:500 13px JetBrains Mono; color:var(--muted); }
+.avail { display:inline-flex; align-items:center; gap:8px; padding:10px 16px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); border-radius:999px; font:500 12px Inter; color:#6ee7b7; }
+.avail::before { content:""; width:6px; height:6px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981; animation:pulse 2s infinite; }
+
+/* RESPONSIVE */
+@media (max-width:1024px){
+  .projects-shell { grid-template-columns:1fr; grid-template-rows:auto 1fr; height:calc(100vh - 80px); }
+  .proj-list { flex-direction:row; overflow-x:auto; padding:16px 16px; border-right:0; border-bottom:1px solid var(--border); gap:8px; }
+  .proj-btn { padding:12px 16px; border-left:0; border-bottom:2px solid transparent; white-space:nowrap; flex-shrink:0; }
+  .proj-btn.active { border-left-color:transparent; border-bottom-color:var(--cyan); }
+  .detail-inner { grid-template-columns:1fr; gap:32px; padding:32px 24px; overflow-y:auto; }
+  .code-window { transform:none; }
+  #about .card { padding:32px 24px; }
+  #contact .card { padding:40px 24px; }
+  nav { top:12px; padding:4px; } nav button { padding:8px 14px; font-size:12px; }
+  .skills-wrap { width:94vw; grid-template-columns:repeat(2,1fr); gap:16px; padding:140px 16px 30px; height:auto; }
+  .skill-panel { min-height:auto; padding:20px; transform:translateY(16px); }
+  .skill-panel h3 { font-size:17px; margin-bottom:12px; }
+  .skill-panel .pills span { font-size:13px; padding:7px 12px; }
+}
+@media (max-width:640px){
+  .skills-wrap { grid-template-columns:1fr; padding-top:120px; }
+  .skills-label { top:90px; }
+}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<nav>
+  <button data-i="0" class="active">Home</button>
+  <button data-i="1">About</button>
+  <button data-i="2">Projects</button>
+  <button data-i="3">Skills</button>
+  <button data-i="4">Contact</button>
+</nav>
+
+<main id="container">
+  <!-- HOME -->
+  <section id="home">
+    <div class="home-sub">Full-Stack AI Engineer</div>
+    <h1 class="home-title">KRISH<br>AGARWAL</h1>
+    <div class="home-tag">Building production LLM systems<span class="home-dot"></span>San Francisco</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="glass card">
+      <div class="about-head">
+        <div class="eyebrow">About</div>
+        <h2 class="about-title">Engineering AI that ships.</h2>
+        <p class="about-desc">I design and deploy full-stack systems where LLMs meet production constraints — latency, cost, reliability. From semantic caching to federated learning, I build the infrastructure that makes AI useful at scale.</p>
+      </div>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-time">2024 — Present</div>
+          <div class="t-role">Full-Stack AI Engineer</div>
+          <div class="t-text">Building production LLM platforms. Focus: retrieval architectures, eval frameworks, and multi-model routing.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-time">2023 — 2024</div>
+          <div class="t-role">PromptArche — Founder/Lead</div>
+          <div class="t-text">10,000+ prompts indexed. 90% cache hit rate. 25+ model integrations with unified API.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-time">2022 — 2023</div>
+          <div class="t-role">ML Systems Research</div>
+          <div class="t-text">Federated learning with differential privacy. CLIP-based multimodal retrieval. Published internal tooling.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="projects-shell">
+      <div class="proj-list">
+        <button class="proj-btn active" data-p="prompt"><span class="p-num">01</span>PromptArche</button>
+        <button class="proj-btn" data-p="docu"><span class="p-num">02</span>DocuStream</button>
+        <button class="proj-btn" data-p="hms"><span class="p-num">03</span>Hospital Management</button>
+      </div>
+      <div class="proj-detail">
+        <div class="detail-inner">
+          <div>
+            <h2 class="p-title" id="p-title">PromptArche</h2>
+            <div class="pills" id="p-tech"></div>
+            <ul class="bullets" id="p-bullets"></ul>
+            <div class="p-meta" id="p-meta"></div>
+          </div>
+          <div class="code-window">
+            <div class="code-header"><span></span><span></span><span id="p-file">architecture.ts</span></div>
+            <pre id="p-code"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="skills-label">Skills Architecture</div>
+    <div class="skills-wrap" id="skills-wrap">
+      
+      <div class="skill-panel">
+        <h3>Programming Languages</h3>
+        <div class="pills">
+          <span>Python</span><span>JavaScript</span><span>Java</span><span>SQL</span>
+        </div>
+      </div>
+      
+      <div class="skill-panel">
+        <h3>Full-Stack Development</h3>
+        <div class="pills">
+          <span>React</span><span>Node.js</span><span>FastAPI</span><span>REST APIs</span><span>WebSockets</span><span>JWT Authentication</span>
+        </div>
+      </div>
+      
+      <div class="skill-panel">
+        <h3>AI &amp; Machine Learning</h3>
+        <div class="pills">
+          <span>PyTorch</span><span>HuggingFace</span><span>LLM Integration</span><span>CLIP</span><span>Federated Learning</span>
+        </div>
+      </div>
+      
+      <div class="skill-panel">
+        <h3>Databases &amp; Storage</h3>
+        <div class="pills">
+          <span>PostgreSQL</span><span>MongoDB</span><span>MySQL</span><span>Vector Databases</span>
+        </div>
+      </div>
+      
+      <div class="skill-panel">
+        <h3>Cloud &amp; DevOps</h3>
+        <div class="pills">
+          <span>Docker</span><span>AWS (EC2, S3, RDS)</span><span>Git</span><span>GitHub</span><span>Jenkins</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="glass card">
+      <h2 class="contact-title">Let's build.</h2>
+      <p class="contact-sub">Full-stack AI systems, production LLMs, and infrastructure that scales.</p>
+      <div class="contact-links">
+        <a class="c-link" href="mailto:krish@promptarche.com"><span>Email</span><span>krish@promptarche.com</span></a>
+        <a class="c-link" href="https://linkedin.com" target="_blank"><span>LinkedIn</span><span>/in/krishagarwal</span></a>
+        <a class="c-link" href="https://github.com" target="_blank"><span>GitHub</span><span>@krishagarwal</span></a>
+      </div>
+      <div class="avail">Available for Full-Stack AI roles</div>
+    </div>
+  </section>
+</main>
+
+<script type="module">
+import * as THREE from 'three';
+
+const container = document.getElementById('container');
+const sections = Array.from(document.querySelectorAll('section'));
+const navBtns = Array.from(document.querySelectorAll('nav button'));
+let current = 0;
+let skillsStarted = false;
+
+// THREE
+const canvas = document.getElementById('bg');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 100);
+camera.position.z = 5.2;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+const geo = new THREE.TetrahedronGeometry(1.4, 0);
+const cols = [[0,212,255],[124,58,237],[236,72,153],[16,185,129]].map(c=>c.map(v=>v/255));
+const colorArray = [];
+for(let f=0; f<4; f++){
+  const col = cols[f];
+  for(let v=0; v<3; v++) colorArray.push(...col);
+}
+geo.setAttribute('color', new THREE.Float32BufferAttribute(colorArray, 3));
+
+const mat = new THREE.MeshStandardMaterial({
+  vertexColors:true,
+  flatShading:true,
+  roughness:0.28,
+  metalness:0.35,
+  emissive:new THREE.Color(0x0a0a1a),
+  emissiveIntensity:0.25
+});
+const pyraminx = new THREE.Mesh(geo, mat);
+scene.add(pyraminx);
+
+const wireMat = new THREE.MeshBasicMaterial({ color:0xffffff, wireframe:true, transparent:true, opacity:0.07 });
+const wire = new THREE.Mesh(geo, wireMat);
+scene.add(wire);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+const dir = new THREE.DirectionalLight(0x7c3aed, 1.1);
+dir.position.set(3,4,2);
+scene.add(dir);
+const dir2 = new THREE.DirectionalLight(0x00d4ff, 0.6);
+dir2.position.set(-3,-2, -2);
+scene.add(dir2);
+
+pyraminx.rotation.x = 0.4;
+pyraminx.rotation.y = 0.2;
+wire.rotation.copy(pyraminx.rotation);
+
+function animate(time){
+  requestAnimationFrame(animate);
+  pyraminx.position.y = Math.sin(time*0.0004)*0.06;
+  wire.position.y = pyraminx.position.y;
+  wire.rotation.copy(pyraminx.rotation);
+  renderer.render(scene, camera);
+}
+animate(0);
+
+addEventListener('resize', ()=>{
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+// NAV + SCROLL
+gsap.registerPlugin(ScrollTrigger);
+
+function setActive(i){
+  if(current===i) return;
+  current = i;
+  navBtns.forEach((b,idx)=>b.classList.toggle('active', idx===i));
+  const targetY = i * 2.09439510239 + 0.2;
+  const targetX = 0.4 + i*0.07;
+  gsap.to(pyraminx.rotation, { y: targetY, x: targetX, duration:0.85, ease:"power2.inOut" });
+  
+  const faceColors = ['#00d4ff','#7c3aed','#ec4899','#10b981','#f59e0b'];
+  const color = faceColors[i] || '#00d4ff';
+  
+  // beam from face
+  const beamGeo = new THREE.CylinderGeometry(0.01, 0.14, 3.4, 12);
+  const beamMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(color), transparent:true, opacity:0.9, blending:THREE.AdditiveBlending });
+  const beam = new THREE.Mesh(beamGeo, beamMat);
+  beam.position.set(0,0,0.9);
+  beam.rotation.x = Math.PI/2.1;
+  scene.add(beam);
+  gsap.to(beam.material, { opacity:0, duration:0.8, ease:"power2.out", onComplete:()=>{ scene.remove(beam); beamGeo.dispose(); beamMat.dispose(); }});
+  gsap.to(beam.scale, { x:1.5, z:1.5, duration:0.8, ease:"power2.out" });
+  
+  // content tilt + pulse
+  const sec = sections[i];
+  let content = sec.querySelector('.glass.card, .projects-shell, .skills-wrap, .home-title');
+  if(!content) content = sec;
+  gsap.fromTo(content, { rotationX:5, transformPerspective:1000, transformOrigin:"center 60%" }, { rotationX:0, duration:0.8, ease:"power2.out", clearProps:"transform" });
+  gsap.timeline()
+    .to(content, { boxShadow:`0 0 0 1px ${color}66, 0 0 60px ${color}33, 0 20px 60px rgba(0,0,0,0.5)`, duration:0.35, ease:"power2.out" })
+    .to(content, { boxShadow:"", duration:0.45, ease:"power2.in" }, 0.35);
+  
+  if(i===3 && !skillsStarted){ startSkills(); }
+}
+
+sections.forEach((sec,i)=>{
+  ScrollTrigger.create({
+    trigger: sec,
+    scroller: "#container",
+    start:"top 50%",
+    end:"bottom 50%",
+    onEnter:()=>setActive(i),
+    onEnterBack:()=>setActive(i)
+  });
+});
+
+ScrollTrigger.create({
+  scroller:"#container",
+  snap:{ snapTo:1/4, duration:0.5, ease:"power2.inOut" }
+});
+
+navBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const i = +btn.dataset.i;
+    sections[i].scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// PROJECTS
+const projectData = {
+  prompt: {
+    title:"PromptArche",
+    tech:["React","Node.js","FastAPI","PostgreSQL","Redis","Docker"],
+    bullets:[
+      "Engineered semantic cache achieving 90% hit rate across 10,000+ prompts",
+      "Unified routing across 25+ LLM APIs with automatic fallback & load balancing",
+      "Reduced P95 latency by 65% using FAISS vector search + Redis"
+    ],
+    meta:"10,000+ prompts • 90% cache • 25+ APIs",
+    file:"router.ts",
+    code:`<span class="c1">// PromptArche — Semantic LLM Router</span>
+<span class="k">interface</span> <span class="t">PromptRequest</span> {
+  query: <span class="s">string</span>;
+  embedding: <span class="s">Vector&lt;768&gt;</span>;
+}
+
+<span class="k">class</span> <span class="t">SemanticCache</span> {
+  <span class="f">get</span>(key): <span class="s">90% hit</span>
+  store: <span class="s">FAISS + Redis</span>
+  ttl: <span class="s">adaptive</span>
+}
+
+<span class="k">const</span> router → [
+  <span class="s">'openai'</span>, <span class="s">'anthropic'</span>, 
+  <span class="s">'mistral'</span>, <span class="s">'...25+'</span>
+]
+
+<span class="c2">throughput: 10k prompts/day • p95 214ms</span>`
+  },
+  docu: {
+    title:"DocuStream",
+    tech:["Python","Streamlit","PyTorch","CLIP","FAISS","AWS"],
+    bullets:[
+      "Real-time document Q&A over 50k+ pages with <200ms retrieval",
+      "Vision-language pipeline using CLIP ViT-B/32 embeddings",
+      "Deployed on AWS with auto-scaling, handling 1.2k concurrent users"
+    ],
+    meta:"Live: docustream.streamlit.app",
+    file:"pipeline.py",
+    code:`<span class="c1"># DocuStream — Realtime RAG</span>
+<span class="k">def</span> <span class="f">ingest</span>(pdf):
+  chunks = <span class="s">PyMuPDF</span>.extract()
+  embeddings = <span class="s">CLIP_ViT_B32</span>(chunks)
+  <span class="s">FAISS</span>.index(embeddings)
+
+<span class="k">def</span> <span class="f">query</span>(q):
+  vec = embed(q)
+  hits = index.search(vec, k=8)
+  <span class="k">return</span> llm.synthesize(hits)
+
+<span class="c2"># metrics: p95 187ms • 50k docs • live</span>
+<span class="s">docustream.streamlit.app</span>`
+  },
+  hms: {
+    title:"Hospital Management System",
+    tech:["Spring Boot","MySQL","React","JWT","Redis"],
+    bullets:[
+      "Full hospital workflow: patients, doctors, appointments, billing",
+      "Role-based JWT auth with audit logging & HIPAA-compliant encryption",
+      "Optimized queries handling 1M+ records with <50ms response"
+    ],
+    meta:"Spring Boot • MySQL • JWT",
+    file:"AuthController.java",
+    code:`<span class="c1">// HMS — Secure Core</span>
+<span class="k">@RestController</span>
+<span class="k">public class</span> <span class="t">AuthController</span> {
+  <span class="k">@PostMapping</span>(<span class="s">"/login"</span>)
+  <span class="f">JWT</span> login(credentials) {
+    <span class="k">return</span> jwtService.issue(
+      roles: [DOCTOR, ADMIN, PATIENT],
+      audit: true
+    );
+  }
+}
+
+<span class="s">DB: MySQL (1M+ records)</span>
+<span class="s">Cache: Redis sessions</span>
+<span class="c2">uptime: 99.97%</span>`
+  }
+};
+
+const pTitle = document.getElementById('p-title');
+const pTech = document.getElementById('p-tech');
+const pBullets = document.getElementById('p-bullets');
+const pMeta = document.getElementById('p-meta');
+const pCode = document.getElementById('p-code');
+const pFile = document.getElementById('p-file');
+
+function selectProject(key){
+  const d = projectData[key];
+  gsap.to('.detail-inner', { opacity:0, y:12, duration:0.2, onComplete:()=>{
+    pTitle.textContent = d.title;
+    pTech.innerHTML = d.tech.map(t=>`<span class="pill">${t}</span>`).join('');
+    pBullets.innerHTML = d.bullets.map(b=>`<li>${b}</li>`).join('');
+    pMeta.textContent = d.meta;
+    pFile.textContent = d.file;
+    pCode.innerHTML = d.code;
+    gsap.to('.detail-inner', { opacity:1, y:0, duration:0.35, ease:"power2.out" });
+  }});
+  document.querySelectorAll('.proj-btn').forEach(b=>b.classList.toggle('active', b.dataset.p===key));
+}
+document.querySelectorAll('.proj-btn').forEach(b=>b.addEventListener('click',()=>selectProject(b.dataset.p)));
+selectProject('prompt');
+
+// SKILLS
+function startSkills(){
+  skillsStarted = true;
+  const panels = Array.from(document.querySelectorAll('.skill-panel'));
+  gsap.to(panels, { opacity:1, y:0, duration:0.6, stagger:0.08, ease:"power2.out" });
+}
+
+// init
+setActive(0);
+</script>
+</body>
+</html>
